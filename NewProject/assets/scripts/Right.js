@@ -12,17 +12,32 @@ cc.Class({
     extends: cc.Component,
 
     properties: {
-
+        // foo: {
+        //     // ATTRIBUTES:
+        //     default: null,        // The default value will be used only when the component attaching
+        //                           // to a node for the first time
+        //     type: cc.SpriteFrame, // optional, default is typeof default
+        //     serializable: true,   // optional, default is true
+        // },
+        // bar: {
+        //     get () {
+        //         return this._bar;
+        //     },
+        //     set (value) {
+        //         this._bar = value;
+        //     }
+        // },
     },
-    setInputControl: function () {
 
-        var sprite = this; 
+    setInputControl: function () {
+        //获取Player对象
+        var sprite = this;  
         var player = this.game.player.getComponent('Player');
         //触摸事件监听
             sprite.node.on(cc.Node.EventType.TOUCH_START, function(e){  
                 // console.log( "cc.Node.EventType.TOUCH_START" );  
-                player.accLeft = true;
-                player.accRight = false;
+                player.accLeft = false;
+                player.accRight = true;
                 // return true;  
             }.bind(this), this );  
             sprite.node.on(cc.Node.EventType.TOUCH_MOVE, function(e){  
@@ -31,11 +46,11 @@ cc.Class({
             }.bind(this), this );  
             sprite.node.on(cc.Node.EventType.TOUCH_END, function(e){  
                 // console.log( "cc.Node.EventType.TOUCH_END" );  
-                player.accLeft = false;
+                player.accRight = false;
             }.bind(this), this );  
             sprite.node.on(cc.Node.EventType.TOUCH_CANCEL, function(e){  
                 // console.log( "cc.Node.EventType.TOUCH_CANCEL" ); 
-                player.accLeft = false;
+                player.accRight = false;
             }.bind(this), this);  
     },
     // LIFE-CYCLE CALLBACKS:
@@ -44,7 +59,7 @@ cc.Class({
         this.setInputControl();
     },
 
-    start() {
+    start () {
 
     },
 

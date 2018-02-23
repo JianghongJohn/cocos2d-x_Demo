@@ -11,10 +11,8 @@ cc.Class({
         maxMoveSpeed: 0,
         // 加速度
         accel: 0,
-        left: {
-            default: null,
-            type: cc.node
-        }
+        //游戏结束
+        isGameOver: false
     },
     setJumpAction: function () {
         // 跳跃上升
@@ -66,8 +64,8 @@ cc.Class({
         // 执行动作 node.runAction(action);
         // 停止一个动作 node.stopAction(action);
         // 停止所有动作 node.stopAllActions();
-        this.jumpAction = this.setJumpAction();
-        this.node.runAction(this.jumpAction);
+        // this.jumpAction = this.setJumpAction();
+        // this.node.runAction(this.jumpAction);
         // 加速度方向开关
         this.accLeft = false;
         this.accRight = false;
@@ -76,10 +74,6 @@ cc.Class({
 
         // 初始化键盘输入监听
         this.setInputControl();
-
-        this.node.on('say-hello', function (event) {
-            console.log(event.detail.msg);
-          });
     },
 
     start () {
@@ -87,12 +81,21 @@ cc.Class({
     },
 
     update (dt) {
+        
+        // dt为每一帧执行的时间，把它加起来等于运行了多长时间 
+        if(this.isGameOver){
+            return;
+        }
         // 根据当前加速度方向每帧更新速度
         if (this.accLeft) {
             this.xSpeed -= this.accel * dt;
+
         } else if (this.accRight) {
             this.xSpeed += this.accel * dt;
+
         }
+        
+        
         // 限制主角的速度不能超过最大值
         if ( Math.abs(this.xSpeed) > this.maxMoveSpeed ) {
             // if speed reach limit, use max speed with current direction
