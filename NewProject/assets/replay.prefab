@@ -38,9 +38,9 @@
     "_opacity": 255,
     "_color": {
       "__type__": "cc.Color",
-      "r": 16,
-      "g": 162,
-      "b": 230,
+      "r": 170,
+      "g": 222,
+      "b": 144,
       "a": 255
     },
     "_cascadeOpacityEnabled": true,
@@ -140,7 +140,7 @@
     "_N$file": null,
     "_isSystemFontUsed": true,
     "_spacingX": 0,
-    "_N$string": "Try Again",
+    "_N$string": "再来一次",
     "_N$horizontalAlign": 1,
     "_N$verticalAlign": 1,
     "_N$fontFamily": "Arial",

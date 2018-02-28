@@ -81,7 +81,7 @@ cc.Class({
     },
 
     update (dt) {
-        
+        if (!this.game.isRunning) return;
         // dt为每一帧执行的时间，把它加起来等于运行了多长时间 
         if(this.isGameOver){
             return;
@@ -92,9 +92,10 @@ cc.Class({
 
         } else if (this.accRight) {
             this.xSpeed += this.accel * dt;
-
+        }else{
+            this.node.x += this.xSpeed * dt;
+            return;
         }
-        
         
         // 限制主角的速度不能超过最大值
         if ( Math.abs(this.xSpeed) > this.maxMoveSpeed ) {
@@ -104,5 +105,15 @@ cc.Class({
 
         // 根据当前速度更新主角的位置
         this.node.x += this.xSpeed * dt;
+
+                //让主角不离开屏幕
+        // limit player position inside screen
+        if ( this.node.x > this.node.parent.width/2) {
+            this.node.x = this.node.parent.width/2;
+            this.xSpeed = 0;
+        } else if (this.node.x < -this.node.parent.width/2) {
+            this.node.x = -this.node.parent.width/2;
+            this.xSpeed = 0;
+        }
     },
 });

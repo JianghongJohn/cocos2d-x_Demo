@@ -45,6 +45,7 @@ cc.Class({
             self.node.active = false;
             //生成星星
             self.game.spawnNewStar();
+            self.game.isRunning = true;
             // return true;  
         }.bind(this), this );    
     },

@@ -68,7 +68,10 @@ cc.Class({
         this.right.getComponent('Right').game = this;
         // 将 Game 组件的实例传入play
         this.play.getComponent('Play').game = this;
-
+        // 将 Game 组件的实例传入play
+        this.player.getComponent('Player').game = this;
+        //是否开始的判断（限制不运行就开始左右平移）
+        this.isRunning = false;
     },
     //生成星星
     spawnNewStar: function () {
@@ -117,14 +120,15 @@ cc.Class({
     },
 
     update(dt) {
+        if (!this.isRunning) return;
         // 每帧更新计时器，超过限度还没有生成新的星星
         if (this.play.getComponent('Play').node.active == false) {
             // 就会调用游戏失败逻辑
             if (this.timer > this.starDuration) {
-                if (this.isGameOver==false) {
+                if (this.isGameOver == false) {
                     this.gameOver();
                 }
-                
+
                 return;
             }
             this.timer += dt;
@@ -141,6 +145,7 @@ cc.Class({
     },
     gameOver: function () {
         this.isGameOver = true;
+        this.isRunning = false;
         this.player.getComponent('Player').isGameOver = true;
         this.player.stopAllActions(); //停止 player 节点的跳跃动作
         //生成再来一次
